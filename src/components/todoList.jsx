@@ -4,9 +4,9 @@ import "./todolist.css";
 class TodoList extends Component {
   state = {
     todoList: [
-      { id: "1", todo: "Item 1", completed: false },
-      { id: "2", todo: "Item 2", completed: true },
-      { id: "3", todo: "Item 3", completed: false },
+      { id: "1", todo: "Add login form", completed: false },
+      { id: "2", todo: "Change home page font-size", completed: true },
+      { id: "3", todo: "Remove product page background color", completed: false }
     ],
     inputValue: "",
   };
@@ -32,13 +32,12 @@ class TodoList extends Component {
   };
   addTodoItem = () => {
     const { todoList, inputValue } = this.state;
+    if(!inputValue) return;
     const nextIndex = (todoList.length + 1).toString();
     const todoItem = { id: nextIndex, todo: inputValue, completed: false };
 
     const list = [...todoList];
     list.push(todoItem);
-    console.log(todoItem);
-
     this.setState({ inputValue: "", todoList: list });
   };
 
@@ -47,7 +46,7 @@ class TodoList extends Component {
     return (
       <div className="todo-main-container">
         <div id="todo-container">
-          <div id="todo-title">Add To-do Item</div>
+          <h1 id="todo-title">Todo List</h1>
           <div className="input-item">
             <input
               id="todo-input"
@@ -55,7 +54,7 @@ class TodoList extends Component {
               onChange={this.typingInput}
               placeholder="Enter Todo Item"
             />
-            <button id="add-button" onClick={this.addTodoItem}>
+            <button className="btn btn-primary" id="add-button" onClick={this.addTodoItem}>
               Add
             </button>
           </div>
@@ -75,7 +74,7 @@ class TodoList extends Component {
               <li
                 className={`todo-item ${item.completed ? "todo-complete" : ""}`}
                 key={item.id}
-                onClick={() => this.handleItemClick(item)}
+                onClick={ ()=>this.handleItemClick(item)}
               >
                 {item.todo}
               </li>
